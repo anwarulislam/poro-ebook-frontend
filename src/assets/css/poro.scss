@@ -17,16 +17,8 @@ body {
     }
     }
 
-    .myBooks {
-      overflow-x: auto; 
-      overflow-y: hidden; 
-      white-space: nowrap;
-
+    .books {
       a {
-        width: 20%;
-        display: inline-block;
-        padding-right: 1rem;
-
         &:hover {
           text-decoration: none;
         }
@@ -45,6 +37,11 @@ body {
       }
     }
 
+    .overflow{
+      overflow-x: auto; 
+      overflow-y: hidden; 
+      white-space: nowrap;
+    }
 }
 
 .mb-rem-2 {

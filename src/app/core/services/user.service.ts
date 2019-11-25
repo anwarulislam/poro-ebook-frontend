@@ -1,47 +1,89 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 
-@Injectable({
-    providedIn: "root"
-})
+import { ApiService } from './api.service';
+import { JwtService } from './jwt.service';
+import { User } from '../models/user.model';
+import { map, distinctUntilChanged } from 'rxjs/operators';
+
+
+@Injectable()
 export class UserService {
-    name: string = ""
-    username: string = ""
-    email: string = ""
+  private currentUserSubject = new BehaviorSubject<User>({} as User);
+  public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
-    constructor(private http: HttpClient) {
-    }
+  private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
+  public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
-    public getUser() {
-        return {
-            name: this.name,
-            username: this.username,
-            email: this.email,
-        };
-    }
+  constructor(
+    private apiService: ApiService,
+    private http: HttpClient,
+    private jwtService: JwtService
+  ) {
+    this.populate()
+  }
 
-    public setUser(user: any) {
-        this.name = user.name
-        this.username = user.username
-        this.email = user.email
+  // Verify JWT in localstorage with server & load user's info.
+  // This runs once on application startup.
+  populate() {
+    // If JWT detected, attempt to get & store user's info
+    if (this.jwtService.getToken()) {
+      this.apiService.get('/user')
+        .subscribe(
+          data => this.setAuth(data.user),
+          err => this.purgeAuth()
+        );
+    } else {
+      // Remove any potential remnants of previous auth states
+      this.purgeAuth();
     }
-    public resetUser() {
-        this.name = undefined
-        this.username = undefined
-        this.email = undefined
-    }
+  }
 
-    handleError(error) {
-        let errorMessage = '';
-        if (error.error instanceof ErrorEvent) {
-            // client-side error
-            errorMessage = `Error: ${error.error.message}`;
-        } else {
-            // server-side error
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  setAuth(user: User) {
+    // Save JWT sent from server in localstorage
+    this.jwtService.saveToken(user.token);
+    // Set current user data into observable
+    this.currentUserSubject.next(user);
+    // Set isAuthenticated to true
+    this.isAuthenticatedSubject.next(true);
+  }
+
+  purgeAuth() {
+    // Remove JWT from localstorage
+    this.jwtService.destroyToken();
+    // Set current user to an empty object
+    this.currentUserSubject.next({} as User);
+    // Set auth status to false
+    this.isAuthenticatedSubject.next(false);
+  }
+
+  attemptAuth(type, credentials): Observable<User> {
+    const route = (type === 'login') ? '/login' : '/register';
+    console.log(credentials);
+    return this.apiService.post(route, credentials)
+      .pipe(map(
+        data => {
+          console.log(data);
+          this.setAuth(data.user);
+          return data;
         }
-        // window.alert(errorMessage);
-        return throwError('errorMessage');
-    }
+      ));
+  }
+
+  getCurrentUser(): User {
+    return this.currentUserSubject.value;
+  }
+
+  // Update the user on the server (email, pass, etc)
+  update(user): Observable<User> {
+    return this.apiService
+      .put('/user', { user })
+      .pipe(map(data => {
+        // Update the currentUser observable
+        this.currentUserSubject.next(data.user);
+        return data.user;
+      }));
+  }
+
 }

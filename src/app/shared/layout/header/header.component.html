@@ -1,19 +1,60 @@
-<div class="row mb-rem-2">
-    <div class="col-10">
-        <div class="p-1 bg-light rounded-pill">
-            <div class="input-group w-100">
-                <input type="search" placeholder="পছন্দের বইটি খুঁজে নাও.."
-                    class="form-control border-0 bg-light rounded-pill">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-link text-primary d-flex">
-                        <i class="material-icons">
-                            search
-                        </i></button>
-                </div>
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top rounded-pill">
+
+    <!-- Sidebar Toggle (Topbar) -->
+    <!-- <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button> -->
+
+    <div class="p-1 bg-light rounded-pill w-75">
+        <div class="input-group w-100">
+            <input type="search" placeholder="পছন্দের বইটি খুঁজে নাও.."
+                class="form-control border-0 bg-light rounded-pill">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-link text-primary d-flex">
+                    <i class="material-icons">
+                        search
+                    </i></button>
             </div>
         </div>
     </div>
-    <div class="col-2 text-left text-md-center">
-        <button class="btn btn-primary mt-0 mt-md-1" style="padding: .375rem 2rem;">লগইন</button>
+
+    <div *isLogged="true" class="mx-4 text-left text-md-center text-white">
+        <a [routerLink]="['/ad']" routerLinkActive="active" class="btn btn-primary mt-0 mt-md-1"
+            style="padding: .375rem 2rem;">বই এড
+        </a>
     </div>
-</div>
+
+    <!-- Topbar Navbar -->
+    <ul class="navbar-nav ml-auto">
+
+        <div *isLogged="false" class="text-left text-md-center">
+            <a [routerLink]="['/login']" routerLinkActive="active" class="btn btn-primary mt-0 mt-md-1"
+                style="padding: .375rem 2rem;">লগইন</a>
+        </div>
+        <div *isLogged="true" class=" text-left text-md-center">
+
+            <div class="btn-group" dropdown placement="bottom right">
+                <a style="cursor: pointer;" id="button-alignment" dropdownToggle class="dropdown-toggle"
+                    aria-controls="dropdown-alignment">
+                    <img style="height: 40px;" class="img-profile rounded-circle"
+                        src="https://images.unsplash.com/placeholder-avatars/extra-large.jpg?dpr=1&amp;auto=format&amp;fit=crop&amp;w=150&amp;h=150&amp;q=60&amp;crop=faces&amp;bg=fff">
+                    <span class="caret">
+                        {{ currentUser.name }}
+                    </span>
+                </a>
+                <ul id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                    aria-labelledby="button-alignment">
+                    <li role="menuitem">
+                        <a [routerLink]="['/']" routerLinkActive="router-link-active" class="dropdown-item"
+                            (click)="logout()">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </ul>
+
+</nav>

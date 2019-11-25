@@ -14,6 +14,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
     const token = localStorage.getItem('token');
     if (token) {
+      console.log(token);
       headersConfig['Authorization'] = `Bearer ${token}`;
     }
 

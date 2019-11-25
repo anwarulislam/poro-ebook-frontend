@@ -1,0 +1,63 @@
+<div class="card shadow mb-4 border-0">
+
+
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Create Book</h6>
+    </div>
+
+
+    <!-- <pre>
+        {{ dokanForm.value | json }}
+    </pre> -->
+
+
+    <div class="card-body">
+
+        <form [formGroup]="dokanForm" (ngSubmit)="submit()">
+
+            <div class="form-group">
+                <label>Book Title</label>
+                <input type="text" class="form-control" formControlName="title" placeholder="Enter book title">
+            </div>
+
+            <div class="form-group">
+                <label>Book Description</label>
+                <input type="text" class="form-control" formControlName="description"
+                    placeholder="Enter book description">
+            </div>
+
+            <div class="form-group">
+                <label>Book Author</label>
+                <input type="text" class="form-control" formControlName="author" placeholder="Enter book author name">
+            </div>
+
+            <div class="form-group">
+                <label>Contact number</label>
+                <input type="text" class="form-control" formControlName="contact" placeholder="Mobile number">
+            </div>
+
+
+
+
+
+            <div class="form-group">
+                <label>Price</label>
+                <input type="checkbox" #isFree
+                    (click)="dokanForm.controls.price.setValue(null); dokanForm.controls.price.disabled">Free
+                <input [disabled]="true" type="text" class="form-control" formControlName="price"
+                    placeholder="Enter price">
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Image
+                </label>
+                <input type="file" class="form-control-file" formControlName="thumbnail" placeholder="Choose image">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</div>

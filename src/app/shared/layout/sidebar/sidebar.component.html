@@ -1,12 +1,12 @@
 <nav class="col-md-2 d-none d-md-block sidebar">
   <div class="sidebar-sticky">
-    <div class="brand_info">
+    <a [routerLink]="['/']" class="brand_info">
       <img src="assets/img/logo.svg" class="logo mr-2" alt="logo">
-      <span class="brand_name">পড়</span>
-    </div>
+      <span class="brand_name">পড়ো</span>
+    </a>
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/home" routerLinkActive="active">
+        <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           <i class="material-icons">
             home
           </i>
@@ -31,11 +31,12 @@
         </a>
       </li>
       <li class="nav-item dropdown_field" id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
-        <a class="nav-link" *ngFor="let category of categories" [routerLink]="['books', 'category', category.id]" routerLinkActive="active">
+        <a class="nav-link" *ngFor="let category of categories" [routerLink]="['books', 'category', category.id]"
+          routerLinkActive="active">
           {{ category.title }}
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *isLogged="true">
         <a [routerLink]="['/bookmarks']" routerLinkActive="active" class="nav-link">
           <i class="material-icons">
             bookmark_border
@@ -43,7 +44,7 @@
           বুকমার্ক
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *isLogged="true">
         <a class="nav-link">
           <i class="material-icons">
             create
@@ -52,7 +53,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link">
+        <a [routerLink]="['/dokan']" routerLinkActive="active" class="nav-link">
           <i class="material-icons">
             shop
           </i>

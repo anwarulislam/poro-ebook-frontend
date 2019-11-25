@@ -4,17 +4,35 @@ import { HomeComponent } from './home/home.component';
 import { BookComponent } from './book/book.component';
 import { PdfComponent } from './pdf/pdf.component';
 import { BookmarkComponent } from './bookmark/bookmark.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './core/guard/auth.guard';
+import { NoAuthGuard } from './core/guard/no-auth.guard';
+import { DokanComponent } from './dokan/dokan.component';
+import { AdComponent } from './ad/ad.component';
 
 
 const routes: Routes = [
   {
-    path: '', redirectTo: '/home', pathMatch: 'full'
+    path: '', component: HomeComponent
   },
   {
-    path: 'home', component: HomeComponent
+    path: 'login',
+    component: LoginComponent,
+    // canActivate: [NoAuthGuard]
   },
   {
-    path: 'bookmarks', component: BookmarkComponent
+    path: 'register',
+    component: LoginComponent,
+    canActivate: [NoAuthGuard]
+  },
+  {
+    path: 'bookmarks', component: BookmarkComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'dokan', component: DokanComponent
+  },
+  {
+    path: 'ad', component: AdComponent
   },
   {
     path: 'book/:book_id', component: PdfComponent

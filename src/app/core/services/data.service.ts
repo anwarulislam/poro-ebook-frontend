@@ -8,6 +8,7 @@ import { environment } from "./../../../environments/environment";
   providedIn: "root"
 })
 export class DataService {
+
   public segments = new BehaviorSubject<any>([]);
 
   activeState: string;
@@ -21,7 +22,7 @@ export class DataService {
   //// Class service
 
   getAllBooks() {
-    return this.http.get(`${environment.api_url}books`);
+    return this.http.get(`${environment.api_url}/books`);
   }
 
   getBookByCategoryId(cat_id) {
@@ -32,8 +33,17 @@ export class DataService {
     return this.http.get(`${environment.api_url}/books/${book_id}`);
   }
 
-  getAllCategories(){
+  getAllCategories() {
     return this.http.get(`${environment.api_url}/books/categories`)
+  }
+
+
+  getAllBooksOfStore() {
+    return this.http.get(`${environment.api_url}/stores`);
+  }
+
+  postBookForSell(value: any) {
+    return this.http.post(`${environment.api_url}/stores`, value);
   }
 
 

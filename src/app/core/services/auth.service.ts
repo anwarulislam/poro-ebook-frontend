@@ -58,7 +58,7 @@ export class AuthService {
       .toDate()
       .valueOf();
     const decodedToken = ToolService.getDecodedToken(AuthService.token);
-    this.userService.setUser(decodedToken);
+    // this.userService.setUser(decodedToken);
     const _expiredTime = moment
       .unix(decodedToken.exp)
       .toDate()
@@ -72,7 +72,7 @@ export class AuthService {
       this.expiredTimer = setTimeout(() => {
         try {
           this.deleteSession();
-          this.userService.resetUser();
+          // this.userService.resetUser();
         } catch (err) {
           console.log("deleteSession error on session timeout: ", err);
         }
@@ -96,14 +96,14 @@ export class AuthService {
     this.http.post(`${environment.api_url}auth/logout`, {}).subscribe(
       res => {
         this.deleteSession();
-        this.userService.resetUser();
+        // this.userService.resetUser();
         location.reload();
         this.router.navigate(["/login"]);
         LoadingComponent.display = false;
       },
       () => {
         this.deleteSession();
-        this.userService.resetUser();
+        // this.userService.resetUser();
         location.reload();
         this.router.navigate(["/login"]);
         LoadingComponent.display = false;

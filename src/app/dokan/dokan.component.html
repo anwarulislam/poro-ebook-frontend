@@ -1,0 +1,19 @@
+<div class="books row ">
+    <div class="col-12 col-md-4 col-lg-3 mb-3" *ngFor="let book of books">
+
+        <div class="card border-0">
+            <img class="card-img" src="http://localhost:8000/thumbnails/{{book.thumbnail}}">
+            <div class="card-img-overlay p-0 d-flex justify-content-end">
+                <div class="price">
+                    <h5 class="p-1 bg-dark text-white">{{book.price ? book.price+'৳' : 'FREE'}}</h5>
+                </div>
+            </div>
+            <div class="card-body p-1">
+                <h6 class="book-title text-dark font-weight-bold mb-0">{{book.title}}</h6>
+                <small class="text-muted">{{book.author}}</small>
+                <h6 class="d-block font-weight-bold" style="color: #4622AF;"> <i class="fas fa-phone-alt"></i>
+                    {{book.contact}}</h6>
+            </div>
+        </div>
+    </div>
+</div>
