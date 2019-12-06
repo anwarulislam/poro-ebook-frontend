@@ -6,9 +6,9 @@
     </div>
 
 
-    <!-- <pre>
+    <pre>
         {{ dokanForm.value | json }}
-    </pre> -->
+    </pre>
 
 
     <div class="card-body">
@@ -42,17 +42,23 @@
 
             <div class="form-group">
                 <label>Price</label>
-                <input type="checkbox" #isFree
-                    (click)="dokanForm.controls.price.setValue(null); dokanForm.controls.price.disabled">Free
-                <input [disabled]="true" type="text" class="form-control" formControlName="price"
-                    placeholder="Enter price">
+                <span class="ml-3">
+                    <input type="checkbox" formControlName="isFree" (change)="onFree()">Free
+                </span>
+                <input type="text" class="form-control" formControlName="price" placeholder="Enter price">
+            </div>
+
+            <!-- Image Preview -->
+            <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                <img [src]="imageURL">
             </div>
 
             <div class="form-group">
                 <label>
                     Image
                 </label>
-                <input type="file" class="form-control-file" formControlName="thumbnail" placeholder="Choose image">
+                <input type="file" (change)="showPreview($event)" accept="image/*" class="form-control-file"
+                    formControlName="thumbnail" placeholder="Choose image">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
