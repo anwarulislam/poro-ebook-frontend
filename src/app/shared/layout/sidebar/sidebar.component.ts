@@ -12,7 +12,7 @@ export class SidebarComponent implements OnInit {
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.getAllCategories().subscribe(data => {
+    this.data.getAllCategories('category').subscribe(data => {
       this.categories = data
       console.log(this.categories);
     })

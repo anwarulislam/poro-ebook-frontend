@@ -43,7 +43,7 @@ export class AdComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
     console.log(file);
     this.dokanForm.patchValue({
-      // thumbnail: file
+      thumbnail: file
     });
     this.dokanForm.get('thumbnail').updateValueAndValidity()
 
@@ -53,10 +53,20 @@ export class AdComponent implements OnInit {
       this.imageURL = reader.result as string;
     }
     reader.readAsDataURL(file)
+
   }
 
   submit() {
-    this.data.postBookForSell(this.dokanForm.value).subscribe(data => {
+
+    var form_data = new FormData();
+
+    for (var key in this.dokanForm.value) {
+      console.log(key);
+      form_data.append(key, this.dokanForm.value[key]);
+    }
+
+
+    this.data.postBookForSell(form_data).subscribe(data => {
       console.log(data);
     })
   }

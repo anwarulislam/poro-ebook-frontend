@@ -9,16 +9,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class DokanComponent implements OnInit {
 
-  books: any;
-
   constructor(private data: DataService, private router: Router, private route: ActivatedRoute) { }
 
+  categories: any;
+
   ngOnInit() {
-    this.route.paramMap.subscribe(param => {
-      this.data.getAllBooksOfStore().subscribe(data => {
-        this.books = data
-        console.log(this.books);
-      })
+    this.data.getAllCategories('dokan').subscribe(data => {
+      this.categories = data
+      console.log(this.categories);
     })
   }
 }

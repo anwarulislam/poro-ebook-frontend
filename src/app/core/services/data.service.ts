@@ -33,13 +33,17 @@ export class DataService {
     return this.http.get(`${environment.api_url}/books/${book_id}`);
   }
 
-  getAllCategories() {
-    return this.http.get(`${environment.api_url}/books/categories`)
+  getAllCategories(type) {
+    return this.http.get(`${environment.api_url}/books/categories/${type}`)
   }
 
 
-  getAllBooksOfStore() {
-    return this.http.get(`${environment.api_url}/stores`);
+  getAllBooksOfStore(type) {
+    return this.http.get(`${environment.api_url}/stores/${type}`);
+  }
+
+  getAllBooksOfStoreByCategory(dokan_id) {
+    return this.http.get(`${environment.api_url}/stores/dokan/${dokan_id}`);
   }
 
   postBookForSell(value: any) {

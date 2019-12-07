@@ -43,14 +43,14 @@
             <div class="form-group">
                 <label>Price</label>
                 <span class="ml-3">
-                    <input type="checkbox" formControlName="isFree" (change)="onFree()">Free
+                    [ Free <input type="checkbox" formControlName="isFree" (change)="onFree()"> ]
                 </span>
                 <input type="text" class="form-control" formControlName="price" placeholder="Enter price">
             </div>
 
             <!-- Image Preview -->
             <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
-                <img [src]="imageURL">
+                <img class="img-fluid" [src]="imageURL">
             </div>
 
             <div class="form-group">
@@ -58,7 +58,7 @@
                     Image
                 </label>
                 <input type="file" (change)="showPreview($event)" accept="image/*" class="form-control-file"
-                    formControlName="thumbnail" placeholder="Choose image">
+                    placeholder="Choose image">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

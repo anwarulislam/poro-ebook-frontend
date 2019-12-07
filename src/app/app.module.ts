@@ -15,6 +15,8 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DokanComponent } from './dokan/dokan.component';
 import { AdComponent } from './ad/ad.component';
+import { BechakenaComponent } from './bechakena/bechakena.component';
+import { DokanProductComponent } from './dokan-product/dokan-product.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { AdComponent } from './ad/ad.component';
     BookmarkComponent,
     LoginComponent,
     DokanComponent,
-    AdComponent
+    AdComponent,
+    BechakenaComponent,
+    DokanProductComponent
   ],
   imports: [
     BrowserModule,

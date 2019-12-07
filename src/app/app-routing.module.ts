@@ -9,6 +9,8 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { NoAuthGuard } from './core/guard/no-auth.guard';
 import { DokanComponent } from './dokan/dokan.component';
 import { AdComponent } from './ad/ad.component';
+import { BechakenaComponent } from './bechakena/bechakena.component';
+import { DokanProductComponent } from './dokan-product/dokan-product.component';
 
 
 const routes: Routes = [
@@ -30,6 +32,12 @@ const routes: Routes = [
   },
   {
     path: 'dokan', component: DokanComponent
+  },
+  {
+    path: 'dokan/:dokan_id', component: DokanProductComponent
+  },
+  {
+    path: 'bechakena', component: BechakenaComponent
   },
   {
     path: 'ad', component: AdComponent
