@@ -1,6 +1,16 @@
+@import "./assets/css/poro.scss";
 
-@import './assets/css/poro.scss';
-
-.book-title{
-    white-space: pre-wrap;
+.book-title {
+  white-space: pre-wrap;
 }
+
+// .card-img {
+//   position: relative;
+//   float: left;
+//   width: auto;
+//   height: 200px;
+//   background-position: 50% 50%;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   object-fit: scale-down;
+// }
